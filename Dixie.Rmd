@@ -1,0 +1,21 @@
+---
+title: "Dixie"
+author: "Liz Kriz"
+date: "2026-04-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The idea is that this dashboard is an *automated* report summarizing the data the app collects
+(if we add more data it will updated)
+
+Explore Dixie ethnogram data
+
+Plots:
+unprompted vs prompted growls
+licks vs groom
+
+how many "" in the hour
