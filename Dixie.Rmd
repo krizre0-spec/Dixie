@@ -1,0 +1,45 @@
+---
+title: "Dixie"
+author: "Liz Kriz"
+date: "2026-04-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning =FALSE)
+library(readr)
+library(ggplot2)
+library(dplyr)
+```
+## Dixie Ethnogram! Examining the occurance of various behaviors over the course of an hour. 
+```{r}
+#Read In-------------------------------------
+dixie<-read.csv("~/repos/Dixie/docs/app_data.csv")
+#subsets------------------------------------------------------------------------
+behavior <- c(
+  "Bed","Stare","Bed","Groom","Bed","Bed","Bed","Lick","Stare","Stare","Stare",
+  "Play","Play","Play","Stare","Growl","Growl","Floor","Play","Floor","Lick",
+  "Bed","Groom","Lick","Wiggle","Bed","Lick","Lick","Bed","Groom","Wiggle",
+  "Groom","Play","Growl","Bed","Stare","Stare","Stare","Groom","Play","Floor",
+  "Lick","Lick","Groom","Groom","Play","Growl","Play")
+
+prompted <- c(
+  "Unprompted","NA","Unprompted","NA","Unprompted","Unprompted","Unprompted","NA",
+  "Unprompted","Unprompted","Unprompted","Prompted","Prompted","Prompted","Prompted",
+  "Prompted","Prompted","Prompted","Prompted","Unprompted","Unprompted","Unprompted",
+  "NA","Unprompted","NA","Unprompted","Unprompted","Unprompted","Unprompted","NA",
+  "NA","NA","Unprompted","Unprompted","Unprompted","Unprompted","Unprompted",
+  "Unprompted","NA","Unprompted","Prompted","Prompted","Unprompted","NA","NA",
+  "Unprompted","Prompted","Prompted")
+#data text cleaning-------------------------------------------------------------
+df<- data.frame (behavior=factor(behavior),prompted =factor(prompted)) %>% filter(behavior != "Floor")
+df$prompted[df$prompted == "NA"] <- "Unprompted"
+df <- df %>%
+  mutate(behavior = recode(behavior, "Bed" = "Whine"))
+
+#Plots--------------------------------------------------------------------------
+ggplot(df, aes(x=behavior))+geom_bar()+labs(title= 'Dixie Behaviors', x='Behavior', y= 'Count')+scale_y_continuous(breaks= seq(0,20, by = 1))
+
+ggplot(df, aes(x= behavior, fill=prompted))+geom_bar()+labs(title= 'What was prompted?', x='Behavior', y= 'Count', fill = 'Prompted')+scale_y_continuous(breaks= seq(0,20, by = 1))
+
+```
