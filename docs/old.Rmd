@@ -12,8 +12,10 @@ library(ggplot2)
 library(dplyr)
 ```
 ## Dixie Ethnogram! Examining the occurance of various behaviors over the course of an hour. 
+![](dixie.jpeg){width="50%"}
+
 ```{r}
-dixie<-read.csv("~/repos/Dixie/app_data.csv")
+dixie<-read.csv("~/repos/Dixie/docs/app_data.csv")
 
 behavior <- c(
   "Bed","Stare","Bed","Groom","Bed","Bed","Bed","Lick","Stare","Stare","Stare",
@@ -41,4 +43,8 @@ ggplot(df, aes(x=behavior))+geom_bar()+labs(title= 'Dixie Behaviors', x='Behavio
 
 ggplot(df, aes(x= behavior, fill=prompted))+geom_bar()+labs(title= 'What was prompted?', x='Behavior', y= 'Count', fill = 'Prompted')+scale_y_continuous(breaks= seq(0,20, by = 1))
 
+
 ```
+
+![](wiggle.jpg){width="50%"}
+# example of "wiggle" 

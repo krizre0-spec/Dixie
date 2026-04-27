@@ -64,7 +64,7 @@ column(6, actionButton('stare',
 column(6, actionButton('wiggle',
                        h2('Wiggle'),
                        width='100%')),
- column(8, actionButton('lick',
+ column(6, actionButton('lick',
                                   h2('Lick'),
                                   width='100%')))
 ################################################################################
