@@ -1,6 +1,6 @@
 ---
-title: "Index"
-author: "Liz Kriz"
+title: "Ethnogram Data"
+author: "Lizzie Kriz"
 date: "2026-04-27"
 output: ioslides_presentation
 ---
@@ -11,10 +11,11 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 ```
-## Dixie Ethnogram! Examining the occurance of various behaviors over the course of an hour. 
+
+## Dixie Ethnogram! Examining the occurance of various behaviors over the course of a couple hours. 
 ![](dixie.jpeg){width="50%"}
 
-##
+## Results!
 ```{r}
 dixie<-read.csv("~/repos/Dixie/docs/app_data.csv")
 
@@ -41,6 +42,33 @@ df <- df %>%
 
 
 ggplot(df, aes(x=behavior))+geom_bar()+labs(title= 'Dixie Behaviors', x='Behavior', y= 'Count')+scale_y_continuous(breaks= seq(0,20, by = 1))
-
 ```
 
+## Example of "wiggle"
+![](wiggle.jpg){width="75%"}
+
+## Was she provoked?
+```{r}
+ggplot(df, aes(x= behavior, fill=prompted))+geom_bar()+labs(title= 'What was prompted?', x='Behavior', y= 'Count', fill = 'Prompted')+scale_y_continuous(breaks= seq(0,20, by = 1))
+```
+
+
+## Timeline 
+```{r}
+#fix time
+dixie$time <- as.POSIXct(
+  dixie$X2026.04.19.13.21.27,
+  format = "%Y-%m-%d %H:%M:%S"
+)
+#filter +clean
+dixie <- dixie[dixie$time < as.POSIXct("2026-04-20"), ]
+dixie$Bed[dixie$Bed == "Bed"] <- "Whine"
+
+
+ggplot(dixie, aes(x = time, y = Bed, color = Bed)) +
+  geom_point(size = 3) +
+  labs(x = "Time", y = "Behavior", color = "Action") +
+  theme_minimal() + scale_x_datetime(date_breaks = "30 min", date_labels = "%H:%M")
+
+
+```
